@@ -83,7 +83,7 @@ class ClassicShowroomScreen extends StatelessWidget {
                   title: '1961 Berlinetta',
                   subtitle: 'Italian Heritage',
                   description: 'A masterpiece of mid-century automotive design, featuring flowing lines and a powerful V12 engine.',
-                  icon: Icons.directions_car,
+                  imageUrl: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
                 ),
                 const SizedBox(height: 24),
                 _buildCarCard(
@@ -91,7 +91,7 @@ class ClassicShowroomScreen extends StatelessWidget {
                   title: '1955 Speedster',
                   subtitle: 'German Engineering',
                   description: 'The epitome of pure driving pleasure. Lightweight, agile, and unmistakably classic.',
-                  icon: Icons.airport_shuttle,
+                  imageUrl: 'https://images.unsplash.com/photo-1542282088-fe8426682b8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
                 ),
                 const SizedBox(height: 24),
                 _buildCarCard(
@@ -99,7 +99,7 @@ class ClassicShowroomScreen extends StatelessWidget {
                   title: '1967 Roadster',
                   subtitle: 'British Elegance',
                   description: 'A stunning example of classic British motoring, combining luxury with sporting performance.',
-                  icon: Icons.time_to_leave,
+                  imageUrl: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
                 ),
               ],
             ),
@@ -113,7 +113,7 @@ class ClassicShowroomScreen extends StatelessWidget {
     required String title,
     required String subtitle,
     required String description,
-    required IconData icon,
+    required String imageUrl,
   }) {
     return Container(
       decoration: BoxDecoration(
@@ -130,90 +130,83 @@ class ClassicShowroomScreen extends StatelessWidget {
           color: Colors.black.withOpacity(0.05),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.network(
+            imageUrl,
+            height: 200,
+            width: double.infinity,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => Container(
+              height: 200,
+              width: double.infinity,
+              color: Colors.grey[200],
+              child: const Icon(Icons.directions_car, size: 64, color: Colors.grey),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF2C3E50).withOpacity(0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    icon,
-                    color: const Color(0xFF2C3E50),
-                    size: 28,
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2C3E50),
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF2C3E50),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFFD4AF37),
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.2,
+                    fontFamily: 'sans-serif',
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  description,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    height: 1.6,
+                    color: Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      foregroundColor: const Color(0xFF2C3E50),
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'VIEW DETAILS',
+                          style: TextStyle(
+                            letterSpacing: 1.5,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'sans-serif',
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        subtitle,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFFD4AF37),
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 1.2,
-                          fontFamily: 'sans-serif', // Contrast with serif
-                        ),
-                      ),
-                    ],
+                        SizedBox(width: 8),
+                        Icon(Icons.arrow_forward, size: 18),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            Text(
-              description,
-              style: const TextStyle(
-                fontSize: 16,
-                height: 1.6,
-                color: Colors.black87,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  foregroundColor: const Color(0xFF2C3E50),
-                ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'VIEW DETAILS',
-                      style: TextStyle(
-                        letterSpacing: 1.5,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'sans-serif',
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(Icons.arrow_forward, size: 18),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
